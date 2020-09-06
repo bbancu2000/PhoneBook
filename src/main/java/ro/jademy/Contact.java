@@ -50,14 +50,11 @@ public class Contact implements Comparable<Contact> {
 
     @Override
     public int compareTo(Contact contact) {
-        if(this.firstName.compareTo(contact.firstName) == 0 ){
-            return this.lastName.compareTo(contact.lastName);
+        if (this.firstName.toLowerCase().compareTo(contact.firstName.toLowerCase()) == 0) {
+            return this.lastName.toLowerCase().compareTo(contact.lastName.toLowerCase());
         }
-        return this.firstName.compareTo(contact.firstName);
+        return this.firstName.toLowerCase().compareTo(contact.firstName.toLowerCase());
     }
-
-
-
 
 
     public String getFirstName() {

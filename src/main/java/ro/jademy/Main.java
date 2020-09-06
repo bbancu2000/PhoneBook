@@ -9,14 +9,9 @@ public class Main {
         Agenda agenda = new Agenda();
         agenda.contactList = ContactsProvider.getContacts();
 
-        do{
+        do {
             agenda.showMenu(agenda.contactList);
-
-
-
-        } while(true);
-
-
+        } while (true);
 
     }
 
