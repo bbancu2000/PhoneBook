@@ -16,14 +16,14 @@ public class Agenda {
 
     public void showMenu() {
         System.out.println();
-        System.out.println("----- This is your agenda! -----");
+        System.out.println("-------- This is your agenda! ----");
         System.out.println();
-        System.out.println("1. Display all contacts");
-        System.out.println("2. Add new contact");
-        System.out.println("3. Edit an existing contact");
-        System.out.println("4. Delete contact");
-        System.out.println("5. Search contacts");
-        System.out.println("6. Exit");
+        System.out.println("- 1. Display all contacts --------");
+        System.out.println("- 2. Add new contact -------------");
+        System.out.println("- 3. Edit an existing contact-----");
+        System.out.println("- 4. Delete contact --------------");
+        System.out.println("- 5. Search contacts -------------");
+        System.out.println("- 6. Exit ------------------------");
 
         chooseOption();
     }
