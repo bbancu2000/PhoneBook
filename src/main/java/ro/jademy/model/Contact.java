@@ -1,9 +1,9 @@
-package ro.jademy;
+package ro.jademy.model;
 
 import java.util.Comparator;
 import java.util.Objects;
 
-public class Contact implements Comparable<Contact>{
+public class Contact implements Comparable<Contact> {
 
     String firstName;
     String lastName;
