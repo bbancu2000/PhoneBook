@@ -71,62 +71,65 @@ public class Agenda {
 
         int selectedOption;
 
-        do {
-            System.out.println();
-            System.out.println("What property do you want to edit?");
-            System.out.println("1. First name");
-            System.out.println("2. Last name");
-            System.out.println("3. Phone number");
-            System.out.println("4. Second phone number");
-            System.out.println("5. E-mail");
-            System.out.println("6. Back to previous menu");
+        System.out.println();
+        System.out.println("What property do you want to edit?");
+        System.out.println("1. First name");
+        System.out.println("2. Last name");
+        System.out.println("3. Phone number");
+        System.out.println("4. Second phone number");
+        System.out.println("5. E-mail");
+        System.out.println("6. Back to previous menu");
 
-            selectedOption = scanner.nextInt();
-            scanner.nextLine();
-            switch (selectedOption) {
-                case 1:
-                    System.out.print("New first name: ");
-                    String newFirstName = scanner.nextLine();
-                    contact.setFirstName(newFirstName);
-                    contacts.set(chosenContact - 1, contact);
-                    System.out.println("You successfully modified contact:\n" + contact);
-                    break;
-                case 2:
-                    System.out.print("New last name: ");
-                    String newLastName = scanner.nextLine();
-                    contact.setLastName(newLastName);
-                    contacts.set(chosenContact - 1, contact);
-                    System.out.println("You successfully modified contact:\n" + contact);
-                    break;
-                case 3:
-                    System.out.print("New phone number: ");
-                    String newPhoneNumber = scanner.nextLine();
-                    contact.setPhoneNumber(newPhoneNumber);
-                    contacts.set(chosenContact - 1, contact);
-                    System.out.println("You successfully modified contact:\n" + contact);
-                    break;
-                case 4:
-                    System.out.print("New second phone number: ");
-                    String newSecondPhoneNumber = scanner.nextLine();
-                    contact.setSecondPhoneNumber(newSecondPhoneNumber);
-                    contacts.set(chosenContact - 1, contact);
-                    System.out.println("You successfully modified contact:\n" + contact);
-                    break;
-                case 5:
-                    System.out.print("New email: ");
-                    String newEmail = scanner.nextLine();
-                    contact.setEmail(newEmail);
-                    contacts.set(chosenContact - 1, contact);
-                    System.out.println("You successfully modified contact:\n" + contact);
-                    break;
-                case 6:
-                    showMenu();
-                    break;
-                default:
-                    System.out.println("Choose a correct option!");
-            }
-
-        } while ((selectedOption <= 1) || (selectedOption >= 5));
+        selectedOption = scanner.nextInt();
+        scanner.nextLine();
+        switch (selectedOption) {
+            case 1:
+                System.out.print("New first name: ");
+                String newFirstName = scanner.nextLine();
+                contact.setFirstName(newFirstName);
+                contacts.set(chosenContact - 1, contact);
+                System.out.println("You successfully modified contact:\n" + contact);
+                showEditMenu();
+                break;
+            case 2:
+                System.out.print("New last name: ");
+                String newLastName = scanner.nextLine();
+                contact.setLastName(newLastName);
+                contacts.set(chosenContact - 1, contact);
+                System.out.println("You successfully modified contact:\n" + contact);
+                showEditMenu();
+                break;
+            case 3:
+                System.out.print("New phone number: ");
+                String newPhoneNumber = scanner.nextLine();
+                contact.setPhoneNumber(newPhoneNumber);
+                contacts.set(chosenContact - 1, contact);
+                System.out.println("You successfully modified contact:\n" + contact);
+                showEditMenu();
+                break;
+            case 4:
+                System.out.print("New second phone number: ");
+                String newSecondPhoneNumber = scanner.nextLine();
+                contact.setSecondPhoneNumber(newSecondPhoneNumber);
+                contacts.set(chosenContact - 1, contact);
+                System.out.println("You successfully modified contact:\n" + contact);
+                showEditMenu();
+                break;
+            case 5:
+                System.out.print("New email: ");
+                String newEmail = scanner.nextLine();
+                contact.setEmail(newEmail);
+                contacts.set(chosenContact - 1, contact);
+                System.out.println("You successfully modified contact:\n" + contact);
+                showEditMenu();
+                break;
+            case 6:
+                showMenu();
+                break;
+            default:
+                System.out.println("Choose a correct option!");
+                showEditMenu();
+        }
     }
 
     public void showSearchMenu() {
