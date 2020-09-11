@@ -8,7 +8,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class DataSource {
-
     private static final Faker faker = new Faker();
 
     public static List<Contact> getContactList() {

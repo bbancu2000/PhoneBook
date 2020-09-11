@@ -93,6 +93,14 @@ public class Contact implements Comparable<Contact> {
                 '}';
     }
 
+    public String asCsvLine() {
+        return "firstName='" + firstName +
+                ", lastName='" + lastName +
+                ", phoneNumber='" + phoneNumber +
+                ", secondPhoneNumber='" + secondPhoneNumber +
+                ", email='" + email;
+    }
+
     @Override
     public int compareTo(Contact o) {
         return Comparator.comparing(Contact::getFirstName)

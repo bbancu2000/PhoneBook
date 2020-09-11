@@ -35,4 +35,15 @@ public class SearchService {
                 .filter(contact -> contact.getEmail().toLowerCase().contains(email.toLowerCase()))
                 .collect(Collectors.toList());
     }
+
+    public List<Contact> searchContact(List<Contact> contactList, String value) {
+
+        return contactList.stream()
+                .filter(contact -> contact.getFirstName().toLowerCase().contains(value.toLowerCase())
+                        || contact.getLastName().toLowerCase().contains(value.toLowerCase())
+                        || contact.getPhoneNumber().contains(value)
+                        || contact.getSecondPhoneNumber().contains(value)
+                        || contact.getEmail().toLowerCase().contains(value.toLowerCase()))
+                .collect(Collectors.toList());
+    }
 }

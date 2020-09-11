@@ -1,6 +1,6 @@
 package ro.jademy.model;
 
-import ro.jademy.data.DataSource;
+import ro.jademy.service.IOService;
 import ro.jademy.service.SearchService;
 
 import java.util.List;
@@ -10,9 +10,12 @@ import static ro.jademy.model.Operations.*;
 
 public class Agenda {
 
-    List<Contact> contacts = DataSource.getContactList();
-    SearchService searchService = new SearchService();
+    private static final String FILE_NAME = "contacts.csv";
     Scanner scanner = new Scanner(System.in);
+
+    SearchService searchService = new SearchService();
+    IOService ioService = new IOService();
+    List<Contact> contacts = ioService.readContacts(FILE_NAME);
 
     public void showMenu() {
         System.out.println();
@@ -40,6 +43,7 @@ public class Agenda {
                 break;
             case "2":
                 addNewContact(contacts);
+                ioService.writeContact(contacts, FILE_NAME);
                 showMenu();
                 break;
             case "3":
@@ -62,17 +66,18 @@ public class Agenda {
     }
 
     public void showEditMenu() {
-        displayContacts(contacts);
-        System.out.print("Select the contact you want to edit: ");
+        System.out.print("Please insert the word for searching: ");
+        String value = scanner.nextLine();
+        displayContacts(searchService.searchContact(contacts, value));
+
+        System.out.print("Select the contact number you want to edit: ");
         int chosenContact = scanner.nextInt();
         Contact contact = contacts.get(chosenContact - 1);
 
         System.out.println("Selected contact is:\n" + contact);
 
-        int selectedOption;
-
         System.out.println();
-        System.out.println("What property do you want to edit?");
+        System.out.println("What property do you want to edit? Please insert number");
         System.out.println("1. First name");
         System.out.println("2. Last name");
         System.out.println("3. Phone number");
@@ -80,7 +85,7 @@ public class Agenda {
         System.out.println("5. E-mail");
         System.out.println("6. Back to previous menu");
 
-        selectedOption = scanner.nextInt();
+        int selectedOption = scanner.nextInt();
         scanner.nextLine();
         switch (selectedOption) {
             case 1:
@@ -89,7 +94,8 @@ public class Agenda {
                 contact.setFirstName(newFirstName);
                 contacts.set(chosenContact - 1, contact);
                 System.out.println("You successfully modified contact:\n" + contact);
-                showEditMenu();
+                ioService.writeContact(contacts, FILE_NAME);
+                makeDecision();
                 break;
             case 2:
                 System.out.print("New last name: ");
@@ -97,7 +103,8 @@ public class Agenda {
                 contact.setLastName(newLastName);
                 contacts.set(chosenContact - 1, contact);
                 System.out.println("You successfully modified contact:\n" + contact);
-                showEditMenu();
+                ioService.writeContact(contacts, FILE_NAME);
+                makeDecision();
                 break;
             case 3:
                 System.out.print("New phone number: ");
@@ -105,7 +112,8 @@ public class Agenda {
                 contact.setPhoneNumber(newPhoneNumber);
                 contacts.set(chosenContact - 1, contact);
                 System.out.println("You successfully modified contact:\n" + contact);
-                showEditMenu();
+                ioService.writeContact(contacts, FILE_NAME);
+                makeDecision();
                 break;
             case 4:
                 System.out.print("New second phone number: ");
@@ -113,7 +121,8 @@ public class Agenda {
                 contact.setSecondPhoneNumber(newSecondPhoneNumber);
                 contacts.set(chosenContact - 1, contact);
                 System.out.println("You successfully modified contact:\n" + contact);
-                showEditMenu();
+                ioService.writeContact(contacts, FILE_NAME);
+                makeDecision();
                 break;
             case 5:
                 System.out.print("New email: ");
@@ -121,7 +130,8 @@ public class Agenda {
                 contact.setEmail(newEmail);
                 contacts.set(chosenContact - 1, contact);
                 System.out.println("You successfully modified contact:\n" + contact);
-                showEditMenu();
+                ioService.writeContact(contacts, FILE_NAME);
+                makeDecision();
                 break;
             case 6:
                 showMenu();
@@ -132,43 +142,63 @@ public class Agenda {
         }
     }
 
+    public void makeDecision() {
+        System.out.println("Do you want to edit another contact? [Y/N]");
+        String selectedOption;
+        do {
+            selectedOption = scanner.nextLine();
+            if (selectedOption.equalsIgnoreCase("y")) {
+                showEditMenu();
+            } else {
+                showMenu();
+            }
+        } while (!selectedOption.equalsIgnoreCase("n"));
+    }
+
     public void showSearchMenu() {
         System.out.println();
         System.out.println("1. Search contacts by first name");
         System.out.println("2. Search contacts by last name");
         System.out.println("3. Search contacts by phone number");
         System.out.println("4. Search contacts by e-mail");
-        System.out.println("5. Back to previous menu");
+        System.out.println("5. Search by any criteria");
+        System.out.println("6. Back to previous menu");
 
         System.out.print("Choose an option: ");
         String selectedOption = scanner.nextLine();
 
         switch (selectedOption) {
             case "1":
-                System.out.print("Please insert first name: ");
+                System.out.print("Please insert the first name: ");
                 String firstName = scanner.nextLine();
                 displayContacts(searchService.searchContactByFirstName(contacts, firstName));
                 showSearchMenu();
                 break;
             case "2":
-                System.out.print("Please insert last name: ");
+                System.out.print("Please insert the last name: ");
                 String lastName = scanner.nextLine();
                 displayContacts(searchService.searchContactByLastName(contacts, lastName));
                 showSearchMenu();
                 break;
             case "3":
-                System.out.print("Please insert phone number: ");
+                System.out.print("Please insert the phone number: ");
                 String phoneNumber = scanner.nextLine();
                 displayContacts(searchService.searchContactByPhoneNumber(contacts, phoneNumber));
                 showSearchMenu();
                 break;
             case "4":
-                System.out.print("Please insert email: ");
+                System.out.print("Please insert the email: ");
                 String email = scanner.nextLine();
                 displayContacts(searchService.searchContactByEmail(contacts, email));
                 showSearchMenu();
                 break;
             case "5":
+                System.out.print("Please insert the word you are looking for: ");
+                String word = scanner.nextLine();
+                displayContacts(searchService.searchContact(contacts, word));
+                showSearchMenu();
+                break;
+            case "6":
                 showMenu();
                 break;
             default:
